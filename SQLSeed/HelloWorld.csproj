@@ -6,11 +6,11 @@
 		<Nullable>enable</Nullable>
 	</PropertyGroup>
 	<ItemGroup>
-		<PackageReference Include="Dapper" Version="2.0.123"/>
+		<PackageReference Include="Dapper" Version="2.0.123" />
 		<PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.0" />
 		<PackageReference Include="Microsoft.Extensions.Configuration" Version="7.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="7.0.0" />
-		<PackageReference Include="Newtonsoft.Json" Version="13.0.1"/>
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
 		<None Update="appsettings.json">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
@@ -26,5 +26,6 @@
 		<None Update="UserSalary.json">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
+		<PackageReference Include="npgsql" Version="8.0.2" />
 	</ItemGroup>
 </Project>

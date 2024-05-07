@@ -9,6 +9,7 @@ using Newtonsoft.Json;
 using Microsoft.Data.SqlClient;
 using System.Data;
 using System.Globalization;
+using Npgsql;
 
 namespace SQLSeed
 {
@@ -32,16 +33,16 @@ namespace SQLSeed
 
             if (users != null)
             {
-                using (IDbConnection dbConnection = new SqlConnection(config.GetConnectionString("DefaultConnection")))
+                using (IDbConnection dbConnection = new NpgsqlConnection(config.GetConnectionString("DefaultConnection")))
                 {
-                    string sql = "SET IDENTITY_INSERT UnicornApiSchema.Users ON;"
-                                    + "INSERT INTO UnicornApiSchema.Users (UserId"
-                                    + ",FirstName"
-                                    + ",LastName"
-                                    + ",Email"
-                                    + ",Gender"
-                                    + ",Active)"
-                                    + "VALUES";
+                    string sql =
+                                    "INSERT INTO UnicornApiSchema.Users (UserId"
+                    + ",FirstName"
+                    + ",LastName"
+                    + ",Email"
+                    + ",Gender"
+                    + ",Active)"
+                    + "VALUES";
                     foreach (Users singleUser in users)
                     {
                         string sqlToAdd = "(" + singleUser.UserId
@@ -49,14 +50,14 @@ namespace SQLSeed
                                     + "', '" + singleUser.LastName?.Replace("'", "''")
                                     + "', '" + singleUser.Email?.Replace("'", "''")
                                     + "', '" + singleUser.Gender
-                                    + "', '" + singleUser.Active
+                                    + "', '" + Convert.ToInt32(singleUser.Active)
                                     + "'),";
 
                         if ((sql + sqlToAdd).Length > 4000)
                         {
                             dataContextDapper.ExecuteProcedureMulti(sql.Trim(','), dbConnection);
-                            sql = "SET IDENTITY_INSERT UnicornApiSchema.Users ON;"
-                                    + "INSERT INTO UnicornApiSchema.Users (UserId"
+                            sql =
+                                    "INSERT INTO UnicornApiSchema.Users (UserId"
                                     + ",FirstName "
                                     + ",LastName"
                                     + ",Email"
@@ -69,7 +70,6 @@ namespace SQLSeed
                     dataContextDapper.ExecuteProcedureMulti(sql.Trim(','), dbConnection);
                 }
             }
-            dataContextDapper.ExecuteSQL("SET IDENTITY_INSERT UnicornApiSchema.Users OFF");
 
             string userSalaryJson = System.IO.File.ReadAllText("UserSalary.json");
 
@@ -77,64 +77,64 @@ namespace SQLSeed
 
             dataContextDapper.ExecuteSQL("TRUNCATE TABLE UnicornApiSchema.UserSalary");
 
-            if (userSalary != null)
-            {
-                using (IDbConnection dbConnection = new SqlConnection(config.GetConnectionString("DefaultConnection")))
-                {
-                    string sql = "INSERT INTO UnicornApiSchema.UserSalary (UserId"
-                                    + ",Salary)"
-                                    + "VALUES";
-                    foreach (UserSalary singleUserSalary in userSalary)
-                    {
-                        string sqlToAdd = "(" + singleUserSalary.UserId
-                                    + ", '" + singleUserSalary.Salary.ToString("0.00", CultureInfo.InvariantCulture)
-                                    + "'),";
-                        if ((sql + sqlToAdd).Length > 4000)
-                        {
-                            dataContextDapper.ExecuteProcedureMulti(sql.Trim(','), dbConnection);
-                            sql = "INSERT INTO UnicornApiSchema.UserSalary (UserId"
-                                    + ",Salary)"
-                                    + "VALUES";
-                        }
-                        sql += sqlToAdd;
-                    }
-                    dataContextDapper.ExecuteProcedureMulti(sql.Trim(','), dbConnection);
-                }
-            }
+            // if (userSalary != null)
+            // {
+            //     using (IDbConnection dbConnection = new NpgsqlConnection(config.GetConnectionString("DefaultConnection")))
+            //     {
+            //         string sql = "INSERT INTO UnicornApiSchema.UserSalary (UserId"
+            //                         + ",Salary)"
+            //                         + "VALUES";
+            //         foreach (UserSalary singleUserSalary in userSalary)
+            //         {
+            //             string sqlToAdd = "(" + singleUserSalary.UserId
+            //                         + ", '" + singleUserSalary.Salary.ToString("0.00", CultureInfo.InvariantCulture)
+            //                         + "'),";
+            //             if ((sql + sqlToAdd).Length > 4000)
+            //             {
+            //                 dataContextDapper.ExecuteProcedureMulti(sql.Trim(','), dbConnection);
+            //                 sql = "INSERT INTO UnicornApiSchema.UserSalary (UserId"
+            //                         + ",Salary)"
+            //                         + "VALUES";
+            //             }
+            //             sql += sqlToAdd;
+            //         }
+            //         dataContextDapper.ExecuteProcedureMulti(sql.Trim(','), dbConnection);
+            //     }
+            // }
 
-            string userJobInfoJson = System.IO.File.ReadAllText("UserJobInfo.json");
+            // string userJobInfoJson = System.IO.File.ReadAllText("UserJobInfo.json");
 
-            IEnumerable<UserJobInfo>? userJobInfo = JsonConvert.DeserializeObject<IEnumerable<UserJobInfo>>(userJobInfoJson);
+            // IEnumerable<UserJobInfo>? userJobInfo = JsonConvert.DeserializeObject<IEnumerable<UserJobInfo>>(userJobInfoJson);
 
-            dataContextDapper.ExecuteSQL("TRUNCATE TABLE UnicornApiSchema.UserJobInfo");
+            // dataContextDapper.ExecuteSQL("TRUNCATE TABLE UnicornApiSchema.UserJobInfo");
 
-            if (userJobInfo != null)
-            {
-                using (IDbConnection dbConnection = new SqlConnection(config.GetConnectionString("DefaultConnection")))
-                {
-                    string sql = "INSERT INTO UnicornApiSchema.UserJobInfo (UserId"
-                                    + ",Department"
-                                    + ",JobTitle)"
-                                    + "VALUES";
-                    foreach (UserJobInfo singleUserJobInfo in userJobInfo)
-                    {
-                        string sqlToAdd = "(" + singleUserJobInfo.UserId
-                                    + ", '" + singleUserJobInfo.Department
-                                    + "', '" + singleUserJobInfo.JobTitle
-                                    + "'),";
-                        if ((sql + sqlToAdd).Length > 4000)
-                        {
-                            dataContextDapper.ExecuteProcedureMulti(sql.Trim(','), dbConnection);
-                            sql = "INSERT INTO UnicornApiSchema.UserJobInfo (UserId"
-                                    + ",Department"
-                                    + ",JobTitle)"
-                                    + "VALUES";
-                        }
-                        sql += sqlToAdd;
-                    }
-                    dataContextDapper.ExecuteProcedureMulti(sql.Trim(','), dbConnection);
-                }
-            }
+            // if (userJobInfo != null)
+            // {
+            //     using (IDbConnection dbConnection = new NpgsqlConnection(config.GetConnectionString("DefaultConnection")))
+            //     {
+            //         string sql = "INSERT INTO UnicornApiSchema.UserJobInfo (UserId"
+            //                         + ",Department"
+            //                         + ",JobTitle)"
+            //                         + "VALUES";
+            //         foreach (UserJobInfo singleUserJobInfo in userJobInfo)
+            //         {
+            //             string sqlToAdd = "(" + singleUserJobInfo.UserId
+            //                         + ", '" + singleUserJobInfo.Department
+            //                         + "', '" + singleUserJobInfo.JobTitle
+            //                         + "'),";
+            //             if ((sql + sqlToAdd).Length > 4000)
+            //             {
+            //                 dataContextDapper.ExecuteProcedureMulti(sql.Trim(','), dbConnection);
+            //                 sql = "INSERT INTO UnicornApiSchema.UserJobInfo (UserId"
+            //                         + ",Department"
+            //                         + ",JobTitle)"
+            //                         + "VALUES";
+            //             }
+            //             sql += sqlToAdd;
+            //         }
+            //         dataContextDapper.ExecuteProcedureMulti(sql.Trim(','), dbConnection);
+            //     }
+            // }
             Console.WriteLine("SQL Seed Completed Successfully");
         }
     }

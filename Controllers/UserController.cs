@@ -30,12 +30,12 @@ public class UserController : ControllerBase
     public IEnumerable<User> GetUsers()
     {
         string sql = @"
-            SELECT [UserId],
-                [FirstName],
-                [LastName],
-                [Email],
-                [Gender],
-                [Active] 
+            SELECT UserId,
+                FirstName,
+                LastName,
+                Email,
+                Gender,
+                Active 
             FROM UnicornApiSchema.Users";
         IEnumerable<User> users = _dapper.LoadData<User>(sql);
         return users;

@@ -2,6 +2,8 @@ using System.Data;
 using Dapper;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
+using Npgsql;
+
 
 namespace SQLSeed.Data
 {
@@ -15,7 +17,7 @@ namespace SQLSeed.Data
 
         public IEnumerable<T> LoadData<T>(string sql)
         {
-            using (IDbConnection dbConnection = new SqlConnection(_config.GetConnectionString("DefaultConnection")))
+            using (IDbConnection dbConnection = new NpgsqlConnection(_config.GetConnectionString("DefaultConnection")))
             {
                 dbConnection.Open();
                 using (IDbTransaction tran = dbConnection.BeginTransaction(IsolationLevel.ReadCommitted))
@@ -29,7 +31,7 @@ namespace SQLSeed.Data
 
         public int ExecuteSQL(string sql)
         {
-            using (IDbConnection dbConnection = new SqlConnection(_config.GetConnectionString("DefaultConnection")))
+            using (IDbConnection dbConnection = new NpgsqlConnection(_config.GetConnectionString("DefaultConnection")))
             {
                 return dbConnection.Execute(sql);
             }

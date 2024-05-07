@@ -1,6 +1,8 @@
 using System.Data;
 using Dapper;
 using Microsoft.AspNetCore.Components.Forms;
+using Npgsql;
+
 using Microsoft.Data.SqlClient;
 
 namespace DotnetAPI.Data
@@ -18,7 +20,7 @@ namespace DotnetAPI.Data
 
         public IEnumerable<T> LoadData<T>(string sql)
         {
-            IDbConnection dbConnection = new SqlConnection(_connectionString);
+            IDbConnection dbConnection = new NpgsqlConnection(_connectionString);
             return dbConnection.Query<T>(sql);
         }
 
