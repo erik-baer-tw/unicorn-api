@@ -13,28 +13,28 @@ CREATE TABLE UnicornApiSchema.Users
     , Active BIT
 );
 
--- DROP TABLE IF EXISTS UnicornApiSchema.UserSalary;
+DROP TABLE IF EXISTS UnicornApiSchema.UserSalary;
 
--- -- IF OBJECT_ID('UnicornApiSchema.UserSalary') IS NOT NULL
--- --     DROP TABLE UnicornApiSchema.UserSalary;
+-- IF OBJECT_ID('UnicornApiSchema.UserSalary') IS NOT NULL
+--     DROP TABLE UnicornApiSchema.UserSalary;
 
--- CREATE TABLE UnicornApiSchema.UserSalary
--- (
---     UserId INT UNIQUE
---     , Salary DECIMAL(18, 4)
--- );
+CREATE TABLE UnicornApiSchema.UserSalary
+(
+    UserId INT UNIQUE
+    , Salary DECIMAL(18, 4)
+);
 
--- DROP TABLE IF EXISTS UnicornApiSchema.UserJobInfo;
+DROP TABLE IF EXISTS UnicornApiSchema.UserJobInfo;
 
--- -- IF OBJECT_ID('UnicornApiSchema.UserJobInfo') IS NOT NULL
--- --     DROP TABLE UnicornApiSchema.UserJobInfo;
+-- IF OBJECT_ID('UnicornApiSchema.UserJobInfo') IS NOT NULL
+--     DROP TABLE UnicornApiSchema.UserJobInfo;
 
--- CREATE TABLE UnicornApiSchema.UserJobInfo
--- (
---     UserId INT UNIQUE
---     , JobTitle NVARCHAR(50)
---     , Department NVARCHAR(50),
--- );
+CREATE TABLE UnicornApiSchema.UserJobInfo
+(
+    UserId INT UNIQUE
+    , JobTitle VARCHAR(50)
+    , Department VARCHAR(50)
+);
 
 -- USE DotNetCourseDatabase;
 -- GO
