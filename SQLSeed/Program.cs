@@ -34,8 +34,8 @@ namespace SQLSeed
             {
                 using (IDbConnection dbConnection = new SqlConnection(config.GetConnectionString("DefaultConnection")))
                 {
-                    string sql = "SET IDENTITY_INSERT TutorialAppSchema.Users ON;"
-                                    + "INSERT INTO TutorialAppSchema.Users (UserId"
+                    string sql = "SET IDENTITY_INSERT UnicornApiSchema.Users ON;"
+                                    + "INSERT INTO UnicornApiSchema.Users (UserId"
                                     + ",FirstName"
                                     + ",LastName"
                                     + ",Email"
@@ -55,8 +55,8 @@ namespace SQLSeed
                         if ((sql + sqlToAdd).Length > 4000)
                         {
                             dataContextDapper.ExecuteProcedureMulti(sql.Trim(','), dbConnection);
-                            sql = "SET IDENTITY_INSERT TutorialAppSchema.Users ON;"
-                                    + "INSERT INTO TutorialAppSchema.Users (UserId"
+                            sql = "SET IDENTITY_INSERT UnicornApiSchema.Users ON;"
+                                    + "INSERT INTO UnicornApiSchema.Users (UserId"
                                     + ",FirstName "
                                     + ",LastName"
                                     + ",Email"
@@ -69,19 +69,19 @@ namespace SQLSeed
                     dataContextDapper.ExecuteProcedureMulti(sql.Trim(','), dbConnection);
                 }
             }
-            dataContextDapper.ExecuteSQL("SET IDENTITY_INSERT TutorialAppSchema.Users OFF");
+            dataContextDapper.ExecuteSQL("SET IDENTITY_INSERT UnicornApiSchema.Users OFF");
 
             string userSalaryJson = System.IO.File.ReadAllText("UserSalary.json");
 
             IEnumerable<UserSalary>? userSalary = JsonConvert.DeserializeObject<IEnumerable<UserSalary>>(userSalaryJson);
 
-            dataContextDapper.ExecuteSQL("TRUNCATE TABLE TutorialAppSchema.UserSalary");
+            dataContextDapper.ExecuteSQL("TRUNCATE TABLE UnicornApiSchema.UserSalary");
 
             if (userSalary != null)
             {
                 using (IDbConnection dbConnection = new SqlConnection(config.GetConnectionString("DefaultConnection")))
                 {
-                    string sql = "INSERT INTO TutorialAppSchema.UserSalary (UserId"
+                    string sql = "INSERT INTO UnicornApiSchema.UserSalary (UserId"
                                     + ",Salary)"
                                     + "VALUES";
                     foreach (UserSalary singleUserSalary in userSalary)
@@ -92,7 +92,7 @@ namespace SQLSeed
                         if ((sql + sqlToAdd).Length > 4000)
                         {
                             dataContextDapper.ExecuteProcedureMulti(sql.Trim(','), dbConnection);
-                            sql = "INSERT INTO TutorialAppSchema.UserSalary (UserId"
+                            sql = "INSERT INTO UnicornApiSchema.UserSalary (UserId"
                                     + ",Salary)"
                                     + "VALUES";
                         }
@@ -106,13 +106,13 @@ namespace SQLSeed
 
             IEnumerable<UserJobInfo>? userJobInfo = JsonConvert.DeserializeObject<IEnumerable<UserJobInfo>>(userJobInfoJson);
 
-            dataContextDapper.ExecuteSQL("TRUNCATE TABLE TutorialAppSchema.UserJobInfo");
+            dataContextDapper.ExecuteSQL("TRUNCATE TABLE UnicornApiSchema.UserJobInfo");
 
             if (userJobInfo != null)
             {
                 using (IDbConnection dbConnection = new SqlConnection(config.GetConnectionString("DefaultConnection")))
                 {
-                    string sql = "INSERT INTO TutorialAppSchema.UserJobInfo (UserId"
+                    string sql = "INSERT INTO UnicornApiSchema.UserJobInfo (UserId"
                                     + ",Department"
                                     + ",JobTitle)"
                                     + "VALUES";
@@ -125,7 +125,7 @@ namespace SQLSeed
                         if ((sql + sqlToAdd).Length > 4000)
                         {
                             dataContextDapper.ExecuteProcedureMulti(sql.Trim(','), dbConnection);
-                            sql = "INSERT INTO TutorialAppSchema.UserJobInfo (UserId"
+                            sql = "INSERT INTO UnicornApiSchema.UserJobInfo (UserId"
                                     + ",Department"
                                     + ",JobTitle)"
                                     + "VALUES";

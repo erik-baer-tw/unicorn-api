@@ -1,9 +1,9 @@
-DROP TABLE IF EXISTS TutorialAppSchema.Users;
+DROP TABLE IF EXISTS UnicornApiSchema.Users;
 
--- IF OBJECT_ID('TutorialAppSchema.Users') IS NOT NULL
---     DROP TABLE TutorialAppSchema.Users;
+-- IF OBJECT_ID('UnicornApiSchema.Users') IS NOT NULL
+--     DROP TABLE UnicornApiSchema.Users;
 
-CREATE TABLE TutorialAppSchema.Users
+CREATE TABLE UnicornApiSchema.Users
 (
     UserId INT IDENTITY(1, 1) PRIMARY KEY
     , FirstName NVARCHAR(50)
@@ -13,23 +13,23 @@ CREATE TABLE TutorialAppSchema.Users
     , Active BIT
 );
 
-DROP TABLE IF EXISTS TutorialAppSchema.UserSalary;
+DROP TABLE IF EXISTS UnicornApiSchema.UserSalary;
 
--- IF OBJECT_ID('TutorialAppSchema.UserSalary') IS NOT NULL
---     DROP TABLE TutorialAppSchema.UserSalary;
+-- IF OBJECT_ID('UnicornApiSchema.UserSalary') IS NOT NULL
+--     DROP TABLE UnicornApiSchema.UserSalary;
 
-CREATE TABLE TutorialAppSchema.UserSalary
+CREATE TABLE UnicornApiSchema.UserSalary
 (
     UserId INT UNIQUE
     , Salary DECIMAL(18, 4)
 );
 
-DROP TABLE IF EXISTS TutorialAppSchema.UserJobInfo;
+DROP TABLE IF EXISTS UnicornApiSchema.UserJobInfo;
 
--- IF OBJECT_ID('TutorialAppSchema.UserJobInfo') IS NOT NULL
---     DROP TABLE TutorialAppSchema.UserJobInfo;
+-- IF OBJECT_ID('UnicornApiSchema.UserJobInfo') IS NOT NULL
+--     DROP TABLE UnicornApiSchema.UserJobInfo;
 
-CREATE TABLE TutorialAppSchema.UserJobInfo
+CREATE TABLE UnicornApiSchema.UserJobInfo
 (
     UserId INT UNIQUE
     , JobTitle NVARCHAR(50)
@@ -45,13 +45,13 @@ CREATE TABLE TutorialAppSchema.UserJobInfo
 --         , [Email]
 --         , [Gender]
 --         , [Active]
---   FROM  TutorialAppSchema.Users;
+--   FROM  UnicornApiSchema.Users;
 
 -- SELECT  [UserId]
 --         , [Salary]
---   FROM  TutorialAppSchema.UserSalary;
+--   FROM  UnicornApiSchema.UserSalary;
 
 -- SELECT  [UserId]
 --         , [JobTitle]
 --         , [Department]
---   FROM  TutorialAppSchema.UserJobInfo;
+--   FROM  UnicornApiSchema.UserJobInfo;

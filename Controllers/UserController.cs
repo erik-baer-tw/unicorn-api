@@ -36,17 +36,9 @@ public class UserController : ControllerBase
                 [Email],
                 [Gender],
                 [Active] 
-            FROM TutorialAppSchema.Users";
+            FROM UnicornApiSchema.Users";
         IEnumerable<User> users = _dapper.LoadData<User>(sql);
         return users;
-        // return new string[] {"user1", "user2" };
-        // return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-        // {
-        //     Date = DateTime.Now.AddDays(index),
-        //     TemperatureC = Random.Shared.Next(-20, 55),
-        //     Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-        // })
-        // .ToArray();
     }
 
     [HttpGet("GetSingleUser/{userId}")]
@@ -60,7 +52,7 @@ public class UserController : ControllerBase
                 [Email],
                 [Gender],
                 [Active] 
-            FROM TutorialAppSchema.Users
+            FROM UnicornApiSchema.Users
                 WHERE UserId = " + userId.ToString(); //"7"
         User user = _dapper.LoadDataSingle<User>(sql);
         return user;
@@ -70,7 +62,7 @@ public class UserController : ControllerBase
     public IActionResult EditUser(User user)
     {
         string sql = @"
-        UPDATE TutorialAppSchema.Users
+        UPDATE UnicornApiSchema.Users
             SET [FirstName] = '" + user.FirstName +
                 "', [LastName] = '" + user.LastName +
                 "', [Email] = '" + user.Email +
@@ -92,7 +84,7 @@ public class UserController : ControllerBase
     [HttpPost("AddUser")]
     public IActionResult AddUser(UserToAddDto user)
     {
-        string sql = @"INSERT INTO TutorialAppSchema.Users(
+        string sql = @"INSERT INTO UnicornApiSchema.Users(
                 [FirstName],
                 [LastName],
                 [Email],
@@ -120,7 +112,7 @@ public class UserController : ControllerBase
     public IActionResult DeleteUser(int userId)
     {
         string sql = @"
-            DELETE FROM TutorialAppSchema.Users 
+            DELETE FROM UnicornApiSchema.Users 
                 WHERE UserId = " + userId.ToString();
 
         Console.WriteLine(sql);
