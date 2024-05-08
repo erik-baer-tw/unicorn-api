@@ -36,7 +36,7 @@ namespace SQLSeed
                 using (IDbConnection dbConnection = new NpgsqlConnection(config.GetConnectionString("DefaultConnection")))
                 {
                     string sql =
-                                    "INSERT INTO UnicornApiSchema.Users (UserId"
+                                    "INSERT INTO unicornapischema.Users (UserId"
                     + ",FirstName"
                     + ",LastName"
                     + ",Email"
@@ -57,7 +57,7 @@ namespace SQLSeed
                         {
                             dataContextDapper.ExecuteProcedureMulti(sql.Trim(','), dbConnection);
                             sql =
-                                    "INSERT INTO UnicornApiSchema.Users (UserId"
+                                    "INSERT INTO unicornapischema.Users (UserId"
                                     + ",FirstName "
                                     + ",LastName"
                                     + ",Email"
@@ -75,13 +75,13 @@ namespace SQLSeed
 
             IEnumerable<UserSalary>? userSalary = JsonConvert.DeserializeObject<IEnumerable<UserSalary>>(userSalaryJson);
 
-            dataContextDapper.ExecuteSQL("TRUNCATE TABLE UnicornApiSchema.UserSalary");
+            dataContextDapper.ExecuteSQL("TRUNCATE TABLE unicornapischema.UserSalary");
 
             if (userSalary != null)
             {
                 using (IDbConnection dbConnection = new NpgsqlConnection(config.GetConnectionString("DefaultConnection")))
                 {
-                    string sql = "INSERT INTO UnicornApiSchema.UserSalary (UserId"
+                    string sql = "INSERT INTO unicornapischema.UserSalary (UserId"
                                     + ",Salary)"
                                     + "VALUES";
                     foreach (UserSalary singleUserSalary in userSalary)
@@ -92,7 +92,7 @@ namespace SQLSeed
                         if ((sql + sqlToAdd).Length > 4000)
                         {
                             dataContextDapper.ExecuteProcedureMulti(sql.Trim(','), dbConnection);
-                            sql = "INSERT INTO UnicornApiSchema.UserSalary (UserId"
+                            sql = "INSERT INTO unicornapischema.UserSalary (UserId"
                                     + ",Salary)"
                                     + "VALUES";
                         }
@@ -106,13 +106,13 @@ namespace SQLSeed
 
             IEnumerable<UserJobInfo>? userJobInfo = JsonConvert.DeserializeObject<IEnumerable<UserJobInfo>>(userJobInfoJson);
 
-            dataContextDapper.ExecuteSQL("TRUNCATE TABLE UnicornApiSchema.UserJobInfo");
+            dataContextDapper.ExecuteSQL("TRUNCATE TABLE unicornapischema.UserJobInfo");
 
             if (userJobInfo != null)
             {
                 using (IDbConnection dbConnection = new NpgsqlConnection(config.GetConnectionString("DefaultConnection")))
                 {
-                    string sql = "INSERT INTO UnicornApiSchema.UserJobInfo (UserId"
+                    string sql = "INSERT INTO unicornapischema.UserJobInfo (UserId"
                                     + ",Department"
                                     + ",JobTitle)"
                                     + "VALUES";
@@ -125,7 +125,7 @@ namespace SQLSeed
                         if ((sql + sqlToAdd).Length > 4000)
                         {
                             dataContextDapper.ExecuteProcedureMulti(sql.Trim(','), dbConnection);
-                            sql = "INSERT INTO UnicornApiSchema.UserJobInfo (UserId"
+                            sql = "INSERT INTO unicornapischema.UserJobInfo (UserId"
                                     + ",Department"
                                     + ",JobTitle)"
                                     + "VALUES";

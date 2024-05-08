@@ -7,7 +7,9 @@ services:
       - 5432:5432
     volumes:
       - ~/apps/postgres:/pg-data
+      - ./db-init-scripts:/docker-entrypoint-initdb.d
     environment:
       - POSTGRES_PASSWORD=S3cret
       - POSTGRES_USER=postgres
-      - POSTGRES_DB=unicornApi
+      # - POSTGRES_DB=UnicornApi
+   
