@@ -26,19 +26,19 @@ namespace DotnetAPI.Data
 
         public T LoadDataSingle<T>(string sql)
         {
-            IDbConnection dbConnection = new SqlConnection(_connectionString);
+            IDbConnection dbConnection = new NpgsqlConnection(_connectionString);
             return dbConnection.QuerySingle<T>(sql);
         }
 
         public bool ExecuteSql(string sql)
         {
-            IDbConnection dbConnection = new SqlConnection(_connectionString);
+            IDbConnection dbConnection = new NpgsqlConnection(_connectionString);
             return dbConnection.Execute(sql) > 0;
         }
 
         public int ExecuteSqlWithRowCount(string sql)
         {
-            IDbConnection dbConnection = new SqlConnection(_connectionString);
+            IDbConnection dbConnection = new NpgsqlConnection(_connectionString);
             return dbConnection.Execute(sql);
         }
 

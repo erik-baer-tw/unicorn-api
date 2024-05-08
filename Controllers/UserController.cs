@@ -46,13 +46,13 @@ public class UserController : ControllerBase
     public User GetSingleUser(int userId)
     {
         string sql = @"
-            SELECT [UserId],
-                [FirstName],
-                [LastName],
-                [Email],
-                [Gender],
-                [Active] 
-            FROM UnicornApiSchema.Users
+           SELECT UserId,
+                FirstName,
+                LastName,
+                Email,
+                Gender,
+                Active 
+                FROM UnicornApiSchema.Users
                 WHERE UserId = " + userId.ToString(); //"7"
         User user = _dapper.LoadDataSingle<User>(sql);
         return user;
@@ -63,11 +63,11 @@ public class UserController : ControllerBase
     {
         string sql = @"
         UPDATE UnicornApiSchema.Users
-            SET [FirstName] = '" + user.FirstName +
-                "', [LastName] = '" + user.LastName +
-                "', [Email] = '" + user.Email +
-                "', [Gender] = '" + user.Gender +
-                "', [Active] = '" + user.Active +
+            SET FirstName = '" + user.FirstName +
+                "', LastName = '" + user.LastName +
+                "', Email = '" + user.Email +
+                "', Gender = '" + user.Gender +
+                "', Active = '" + user.Active +
             "' WHERE UserId = " + user.UserId;
 
         Console.WriteLine(sql);
@@ -85,11 +85,11 @@ public class UserController : ControllerBase
     public IActionResult AddUser(UserToAddDto user)
     {
         string sql = @"INSERT INTO UnicornApiSchema.Users(
-                [FirstName],
-                [LastName],
-                [Email],
-                [Gender],
-                [Active]
+                FirstName,
+                LastName,
+                Email,
+                Gender,
+                Active
             ) VALUES (" +
                 "'" + user.FirstName +
                 "', '" + user.LastName +
